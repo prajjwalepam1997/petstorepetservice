@@ -9,8 +9,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,11 +25,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/petstorepetservice/v2")
 @Slf4j
-@RequiredArgsConstructor
 @Tag(name = "Pet", description = "Pet Store Pet API")
 public class PetController {
 
-	private final PetService petService;
+	@Qualifier("postgresPetService")
+	@Autowired
+	private PetService petService;
 
 	@Operation(
 			summary = "Find pets by status",
