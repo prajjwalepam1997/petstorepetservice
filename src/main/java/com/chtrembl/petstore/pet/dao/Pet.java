@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Setter
 @Getter
 @Entity
@@ -26,4 +29,12 @@ public class Pet {
 
     @Column(length = 64, nullable = false)
     private String status;
+
+    @ManyToMany
+    @JoinTable(
+            name = "pet_tag",
+            joinColumns = @JoinColumn(name = "pet_id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "tag_id", nullable = false)
+    )
+    private Set<Tag> tags = new HashSet<>();
 }
